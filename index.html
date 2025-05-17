@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SPA | POS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="lib/normalize.css">
+    <link rel="stylesheet" href="styles/style.css">
+
+    <style>
+
+        #dashboard-content {
+            background-image: url("/assets/bake-background.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            min-height: calc(100vh - 60px);
+        }
+
+        main {
+            padding-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+    <nav class="navbar sticky-top navbar-expand-md bg-light w-100" data-bs-theme="light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="assets/cookieBlack.png" alt="logo" width="30" height="30" class="d-inline-block align-text-top"> Bite of Bliss</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="btn btn-light me-2" id="home-manage-btn">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light me-2" id="customer-manage-btn">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light me-2" id="item-manage-btn">Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light me-2" id="order-manage-btn">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light me-2" id="invoice-manage-btn">Invoices</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item text-white text-nowrap">
+                        <a class="btn btn-light me-2">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid content-container" id="dashboard-content">
+        <div class="row">
+            <main id="dashboard" role="main" class="col-12 px-4">
+                <h3>Dashboard</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <div class="card">
+                            <div class="card-body" id="dashboard-card">
+                                <h5 class="card-title">Welcome Back, <span>Admin</span></h5>
+                                <p class="card-text">You are logged in with full administrative privileges. Monitor, control, and secure the system in real time.
+                                </p>
+                                <a href="#" class="btn btn-dark">
+                                    <i class="ti ti-logout"></i>
+                                    End Session
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="container-fluid content-container" id="item-content">
+        <div class="container-fluid item-page">
+
+            <!-- Page heading and search -->
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-secondary">
+                        Items
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addNewItemModal"><i class="ti ti-plus"></i> New</button>
+                    </a>
+                    <form class="d-flex search" role="search">
+                        <input class="form-control me-2" id="search_item_input" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-secondary text-dark btn-sm" id="search_item_btn" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+
+            <!-- (Left) form card & table (Right) -->
+            <div class="d-grid gap-2 col-12 mx-0">
+                <div class="row">
+                    <!-- Item Form -->
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <div class="card card-sm">
+                            <div class="card-body">
+                                <form>
+                                    <fieldset id="item_form_fieldset" disabled>
+                                        <div class="mb-1">
+                                            <label for="id" class="form-label mb-0" style="font-size: 17px;">Id</label>
+                                            <input class="form-control" id="id" type="text" value="" aria-label="readonly input example" readonly>                        </div>
+                                        <div class="mb-1">
+                                            <label for="item_name" class="form-label mb-0" style="font-size: 17px;">Item Name</label>
+                                            <input type="text" class="form-control form-control-sm" id="item_name" placeholder="">
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="price" class="form-label mb-0" style="font-size: 17px;">Price</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">Rs.</span>
+                                                <input type="number" step="0.01" min="0" class="form-control" id="price" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="qoh" class="form-label mb-0" style="font-size: 17px;">Quantity</label>
+                                            <div class="input-group">
+                                                <input type="number" step="1" min="1" class="form-control" id="qoh" placeholder="">
+                                                <span class="input-group-text">pcs</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <button class="btn btn-primary btn-dark btn-sm" id="item_reset" type="button">Reset</button>
+                                            <button class="btn btn-primary btn-dark btn-sm" id="item_update" type="button">Edit</button>
+                                            <button class="btn btn-primary btn-dark btn-sm" id="item_delete" type="button">Delete</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item Table -->
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-striped w-100">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">QOH</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="item_tbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid content-container" id="customer-content">
+        <div class="container-fluid customer-page">
+
+            <!-- Page heading and search -->
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-secondary">
+                        Customers
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addNewCustomerModal"><i class="ti ti-plus"></i> New</button>
+                    </a>
+                    <form class="d-flex search" role="search">
+                        <input class="form-control me-2" id="search_input" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-secondary text-dark btn-sm" type="submit" id="search_btn">Search</button>
+                    </form>
+                </div>
+            </nav>
+
+            <!-- (Left) form card & table (Right) -->
+            <div class="d-grid gap-2 col-12 mx-0">
+                <div class="row">
+                    <!-- Customer Form -->
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <div class="card card-sm">
+                            <div class="card-body">
+                                <form>
+                                    <fieldset id="customer_form_fieldset" disabled>
+                                        <div class="mb-1">
+                                            <label for="customer_id" class="form-label mb-0" style="font-size: 17px;">Id</label>
+                                            <input class="form-control" id="customer_id" type="text" value="" aria-label="readonly input example" readonly>                        </div>
+                                        <div class="mb-1">
+                                            <label for="name" class="form-label mb-0" style="font-size: 17px;">Name</label>
+                                            <input type="text" class="form-control form-control-sm" id="name">
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="phone" class="form-label mb-0" style="font-size: 17px;">Contact</label>
+                                            <input type="text" class="form-control form-control-sm" id="phone">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="address" class="form-label mb-0" style="font-size: 17px;">Address</label>
+                                            <textarea class="form-control form-control-sm" id="address" style="height: 60px;"></textarea>
+                                        </div>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <button class="btn btn-primary btn-dark btn-sm" type="button" id="customer_reset">Reset</button>
+                                            <button class="btn btn-primary btn-dark btn-sm" type="button" id="customer_update">Edit</button>
+                                            <button class="btn btn-primary btn-dark btn-sm" type="button" id="customer_delete">Delete</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer Table -->
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-striped w-100">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Phone No.</th>
+                                            <th scope="col">Address</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="customer_tbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+
+    </div>
+
+    <div class="container-fluid content-container" id="orders-content">
+        <div class="container-fluid order-page">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-secondary">
+                        Orders
+                        <button type="button" id="new_order_btn" class="btn btn-secondary btn-sm"><i class="ti ti-plus"></i> New</button>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="d-grid gap-2 col-12 mx-0">
+                <div class="row">
+                    <!-- Item List -->
+                    <div class="col-sm-7 mb-3 mb-sm-0">
+                        <div class="card card-sm">
+                            <div class="card-header">
+                                <form class="d-flex search" role="search">
+                                    <input class="form-control me-2" id="search_order_item_input" type="search" placeholder="Search Items.." aria-label="Search">
+                                    <button class="btn btn-secondary text-dark btn-sm" id="search_order_item_btn" type="submit"><i class="ti ti-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="card-body overflow-auto" id="order-available-item-card" style="max-height: 500px; min-height: 500px;">
+                                <div class="row mt-3" id="order_item_tbody">
+                                    <!-- JS will inject item cards here (according to item list) -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5 mb-3 mb-sm-0">
+                        <div class="card card-sm">
+                            <div class="card-header">
+                                <div class="row align-items-center mb-2">
+                                    <label for="next_order_id" class="col-auto col-form-label" style="font-size: 17px;">Order Id</label>
+                                    <div class="col">
+                                        <input class="form-control" id="next_order_id" type="text" value="" aria-label="readonly input example" readonly>
+                                    </div>
+                                </div>
+                                <form class="d-flex search" role="search">
+<!--
+                                    <input class="form-control me-2" list="customerDatalistOptions" id="search_customer_input" type="search" placeholder="Search Customers.." aria-label="Search">
+-->
+                                    <select class="form-select" id="customerDropdown">
+                                        <option value="" disabled selected>Select a customer</option>
+                                    </select>
+                                    <button class="btn btn-secondary text-dark btn-sm" id="search_customer_btn" type="submit"><i class="ti ti-search"></i></button>
+                                    <!--<datalist id="customerDatalistOptions">
+                                        &lt;!&ndash;<option value="San Francisco">
+                                        <option value="New York">
+                                        <option value="Seattle">
+                                        <option value="Los Angeles">
+                                        <option value="Chicago">&ndash;&gt;
+                                    </datalist>-->
+                                </form>
+                            </div>
+                            <div class="card-body overflow-auto" id="order-items-card" style="max-height: 400px; min-height: 400px;">
+                                <div class="row mt-3" id="item_cart">
+                                    <!-- JS will inject order item cards here (according to item list) -->
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-secondary text-dark btn-sm w-100" id="finalize-order-place-btn" type="submit">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid content-container" id="invoice-content">
+        <div class="container-fluid invoice-page">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-secondary">
+                        Invoices
+                    </a>
+                </div>
+            </nav>
+
+            <div class="col-sm-12 mb-6 mb-sm-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-striped w-100">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Invoice Ids</th>
+                                    <th scope="col">Order Ids</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody id="invoice_tbody">
+                                <!--<tr>
+                                    <th scope="row">OR001</th>
+                                    <td>O001</td>
+                                    <td>C001</td>
+                                    <td>2025-04-04</td>
+                                    <td>50000.00</td>
+                                    <td>
+                                        <button class="btn btn-light text-dark btn-sm add_to_cart_btn" style="width: 30px; height: 30px; padding: 0; font-size: 20px">
+                                            <i class="ti ti-printer"></i>
+                                        </button>
+                                    </td>
+                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="models">
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="addNewItemModal" tabindex="-1" aria-labelledby="exampleModalLabelItem" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabelItem">Add New Item</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-1">
+                                <label for="nextItemId" class="form-label mb-0" style="font-size: 17px;">Id</label>
+                                <input class="form-control" id="nextItemId" type="text" value="I001" aria-label="readonly input example" readonly>                        </div>
+                            <div class="mb-1">
+                                <label for="newItemName" class="form-label mb-0" style="font-size: 17px;">Item Name</label>
+                                <input type="text" class="form-control form-control-sm" id="newItemName">
+                            </div>
+                            <div class="mb-1">
+                                <label for="newItemPrice" class="form-label mb-0" style="font-size: 17px;">Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rs.</span>
+                                    <input type="number" step="0.01" min="0" class="form-control" id="newItemPrice" placeholder="">
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label for="newItemQoh" class="form-label mb-0" style="font-size: 17px;">Quantity</label>
+                                <div class="input-group">
+                                    <input type="number" step="1" min="1" class="form-control" id="newItemQoh" placeholder="">
+                                    <span class="input-group-text">pcs</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark" id="item_save">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addNewCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabelCustomer" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabelCustomer">Add New Customer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-1">
+                                <label for="nextId" class="form-label mb-0" style="font-size: 17px;">Id</label>
+                                <input class="form-control" id="nextId" type="text" value="C001" aria-label="readonly input example" readonly>                        </div>
+                            <div class="mb-1">
+                                <label for="newName" class="form-label mb-0" style="font-size: 17px;">Name</label>
+                                <input type="text" class="form-control form-control-sm" id="newName">
+                            </div>
+                            <div class="mb-1">
+                                <label for="newPhone" class="form-label mb-0" style="font-size: 17px;">Contact</label>
+                                <input type="text" class="form-control form-control-sm" id="newPhone">
+                            </div>
+                            <div class="mb-2">
+                                <label for="newAddress" class="form-label mb-0" style="font-size: 17px;">Address</label>
+                                <textarea class="form-control form-control-sm" id="newAddress" style="height: 60px;"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark" id="customer_save">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="module" src="controller/CustomerController.js"></script>
+    <script type="module" src="controller/ItemController.js"></script>
+    <script type="module" src="controller/PlaceOrderController.js"></script>
+    <script type="module" src="controller/InvoiceController.js"></script>
+    <script type="module" src="controller/IndexController.js"></script>
+
+
+</body>
+</html>
