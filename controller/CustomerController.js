@@ -1,4 +1,4 @@
-import {customer_db} from "../db/db.js";
+import {customer_db} from "../db/DB.js";
 import CustomerModel from "../model/CustomerModel.js";
 import { syncCustomers } from "./PlaceOrderController.js";
 

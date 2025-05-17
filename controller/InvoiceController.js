@@ -1,4 +1,4 @@
-import {invoices} from "../db/db.js";
+import {invoices} from "../db/DB.js";
 
 //////////////////// Invoice / Order history Related jQueries /////////////////////////////
 //let invoices = [];

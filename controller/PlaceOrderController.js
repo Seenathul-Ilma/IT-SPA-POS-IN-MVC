@@ -1,4 +1,4 @@
-import {customer_db, item_db, orders_db, invoices} from "../db/db.js";
+import {customer_db, item_db, orders_db, invoices} from "../db/DB.js";
 import OrdersModel from "../model/OrdersModel.js";
 import OrderDetailModel from '../model/OrderDetailModel.js';
 import InvoiceModel from '../model/InvoiceModel.js';
